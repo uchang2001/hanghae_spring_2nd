@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>댓글수정</title>
+</head>
+
+<style>
+    .layout{
+        width:500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+    .layout input{
+        width:100%;
+        box-sizing: border-box;
+
+    }
+    .layout textarea{
+        width: 100%;
+        margin-top: 10px;
+        min-height: 300px;
+    }
+</style>
+
+<body>
+<div class="layout">
+    <form action="/cupdate" method="post">
+        <input name="id" type="hidden" th:value="${comm.id}">
+        <input name="boardid" type="hidden" th:value="${comm.boardid}">
+        <textarea name="content" th:text="${comm.content}"></textarea>
+        <input name="username" type="hidden" th:value="${comm.username}">
+        <button type="submit">작성</button>
+
+    </form>
+    <button onclick="location.href='/list'">돌아가기</button>
+
+
+</div>
+</body>
+</html>

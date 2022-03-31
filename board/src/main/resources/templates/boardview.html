@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상세 페이지</title>
+</head>
+
+<style>
+    .layout{
+        width:500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+    .layout input{
+        width:100%;
+        box-sizing: border-box;
+
+    }
+    .layout textarea{
+        width: 100%;
+        margin-top: 10px;
+        min-height: 300px;
+    }
+</style>
+
+
+<body>
+
+<h1 th:text="${board.title}">제목입니다.</h1>
+<h3 th:text="${board.ddate}"></h3>
+<p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
+<h3 th:text="${board.writer}"></h3>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>댓글</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr th:each="com : ${#numbers.sequence(comments.size() - 1, 0, -1)}">
+        <ta th:if="${comments[com].boardid}==${board.id}">
+            <td th:text="${comments[com].username}">1</td>
+            <td th:text="${comments[com].content}">1</td>
+            <td th:if="${comments[com].username}==${un}">
+                <a th:href="@{/delete(id=${comments[com].id},bid=${comments[com].boardid})}">글삭제</a>
+                <a th:href="@{/modify(id=${comments[com].id},bid=${comments[com].boardid})}">글수정</a>
+            </td>
+<!--            <td>-->
+<!--                <a th:href="@{/delete(id=${comments[com].id})}">글삭제</a>-->
+<!--            </td>-->
+
+
+
+        </ta>
+
+
+
+    </tr>
+    </tbody>
+</table>
+
+<div class="layout">
+    <form action="/writeproc" method="post">
+        <input  name="boardid" type="hidden" th:value="${board.id}" readonly>
+        <textarea name="content" placeholder="댓글을 입력하세요"></textarea>
+        <input name="username" type="hidden" th:value="${un}" readonly>
+        <button type="submit">작성</button>
+
+    </form>
+
+
+</div>
+
+
+<button onclick="location.href='/list'">돌아가기</button>
+<button th:onclick="|location.href='@{/list}'|">돌아가기</button>
+</body>
+</html>
